@@ -15,6 +15,8 @@ export default function Home() {
         mintMinipayNFT,
         getNFTs,
         signTransaction,
+        getBalance,
+        balance
     } = useWeb3();
 
     const [cUSDLoading, setCUSDLoading] = useState(false);
@@ -36,6 +38,7 @@ export default function Home() {
             setUserOwnedNFTs(tokenURIs);
         };
         if (address) {
+            getBalance();
             getData();
         }
     }, [address]);
@@ -108,6 +111,12 @@ export default function Home() {
                     <div className="h2 text-center">
                         Your address:{" "}
                         <span className="font-bold text-sm">{address}</span>
+                        {balance < 1 && (
+                            <>
+                                <span>{balance}</span>
+                                <a href="https://minipay.opera.com/add_cash">Add some cash</a>
+                            </>
+                        )}
                     </div>
                     {tx && (
                         <p className="font-bold mt-4">
